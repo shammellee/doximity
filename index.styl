@@ -1,0 +1,228 @@
+@require 'nib'
+global-reset()
+
+:root
+  --border-radius--default 10px
+  --button-color--cta-primary #1276D3
+  --button-font-size--medium 1em
+  --color-black #000000
+  --color-white #FFFFFF
+  --color-grey--700 #F5F5F5
+  --color-grey--500 #BBBBBB
+  --color-grey--300 #585858
+  --font--primary Inter, Helvetica, Arial, sans-serif
+  --font--secondary 'HK Grotesk', Helvetica, Arial, sans-serif
+  --font-weight--light 400
+  --font-weight--regular 500
+  --font-weight--medium 600
+  --font-weight--bold 700
+  --font-size--xsmall 12px
+  --font-size--small 14px
+  --font-size--medium 1em
+  --font-size--large 18px
+  --font-size--xlarge 24px
+  --letter-spacing--primary -1%
+  --letter-spacing--secondary -1%
+  --panel-padding 10px
+  --panel-row-gap 15px
+  --panel-shadow 0 1px 5px 0 #3C3C432E
+
+html, body
+  background var(--color-grey--700)
+
+.button
+  appearance none
+  cursor pointer
+  border none
+  border-radius var(--border-radius--default)
+  font var(--button-font-size--medium)/1.4 var(--font--secondary)
+  letter-spacing var(--letter-spacing--secondary)
+  padding 9px 20px
+
+.button--cta-primary
+  background var(--button-color--cta-primary)
+  color #FFFFFF
+  font-weight bold
+  height 40px
+
+#page
+  align-items start
+  column-gap 20px
+  display grid
+  justify-content center
+  grid-template-columns 300px 560px 300px
+  grid-template-areas 'sidebar-left card-list sidebar-right'
+  padding 40px
+
+//┌─────────┐
+//│ SIDEBAR │
+//└─────────┘
+.sidebar
+  align-items flex-start
+  background-color var(--color-white)
+  border-radius var(--border-radius--default)
+  box-shadow var(--panel-shadow)
+  display flex
+  flex-direction column
+  padding var(--panel-padding)
+  row-gap var(--panel-row-gap)
+
+  &--left
+    grid-area sidebar-left
+
+  &--right
+    grid-area sidebar-right
+
+.sidebar__heading--primary
+  color var(--color-black)
+  font var(--font-weight--bold) var(--font-size--medium)/1.4 var(--font--primary)
+  letter-spacing var(--letter-spacing--primary)
+
+.sidebar__heading--secondary
+  color var(--color-black)
+  font var(--font-weight--bold) var(--font-size--medium)/1.4 var(--font--secondary)
+  letter-spacing var(--letter-spacing--secondary)
+
+.sidebar__paragraph
+  color var(--color-black)
+  font var(--font-weight--light) var(--font-size--medium)/1.4 var(--font--primary)
+  letter-spacing var(--letter-spacing--primary)
+
+//┌──────────┐
+//│ DROPDOWN │
+//└──────────┘
+#dropdown
+  align-items center
+  background var(--color-white)
+  border 1px solid var(--color-grey--500)
+  border-radius var(--border-radius--default)
+  box-sizing border-box
+  cursor pointer
+  display flex
+  font var(--button-font-size--medium)/1.4 var(--font--secondary)
+  height 40px
+  letter-spacing var(--letter-spacing--secondary)
+  padding 9px 20px
+  justify-content space-between
+  padding 10px 15px
+  position relative
+  width 100%
+  &:focus-visible
+    outline revert
+
+  &::after
+    content ''
+    background url('img/icon-arrow-down.svg')
+    height 15px
+    width @height
+
+#dropdown__readout
+  font var(--font-weight--medium) var(--font-size--medium)/1.4 var(--font--secondary)
+  letter-spacing var(--letter-spacing-secondary)
+  pointer-events none
+
+#dropdown-list-toggle
+  display none
+
+.dropdown-list
+  --transition-speed 100ms
+  background var(--color-white)
+  border-radius var(--border-radius--default)
+  box-shadow var(--panel-shadow)
+  cursor auto
+  left 0
+  opacity 0
+  position absolute
+  top calc(100% + 2px)
+  transition opacity var(--transition-speed) ease-out, visibility 0s var(--transition-speed)
+  visibility hidden
+  width inherit
+
+#dropdown-list-toggle:checked ~ .dropdown-list
+  opacity 1
+  visibility visible
+  transition opacity var(--transition-speed) ease-out, visibility 0s
+
+.dropdown-list__option
+  align-items center
+  box-sizing border-box
+  cursor pointer
+  display flex
+  font-weight var(--font-weight--regular)
+  height 40px
+  overflow hidden
+  padding 10px 15px
+
+  &:focus-visible
+    outline revert
+
+//┌──────┐
+//│ MAIN │
+//└──────┘
+.main-content
+  grid-area card-list
+
+//┌───────┐
+//│ CARDS │
+//└───────┘
+.card-list
+  display flex
+  flex-direction column
+  row-gap 10px
+
+.card
+  align-items center
+  background var(--color-white)
+  border-radius var(--border-radius--default)
+  box-shadow var(--panel-shadow)
+  display flex
+  justify-content center
+  min-height 300px
+
+.card__title
+  color var(--color-black)
+  font var(--font-weight--bold) var(--font-size--xlarge)/1.4 var(--font--secondary)
+  letter-spacing var(--letter-spacing--secondary)
+
+//┌───────────┐
+//│ INFO LIST │
+//└───────────┘
+.info-list
+  display flex
+  flex-direction column
+  width 100%
+
+.info-list-item
+  align-items center
+  column-gap 10px
+  display flex
+  flex 1 0 auto
+  justify-content space-between
+  padding 10px 0
+
+.info-list-item__image
+  border-radius 50%
+  display block
+  height 40px
+  width @height
+
+.info-list-item__text-group
+  flex 1 0 auto
+
+.info-list-item__text--primary, .info-list-item__text--secondary
+  font var(--font-weight--regular) var(--font-size--small)/1.4 var(--font--secondary)
+  letter-spacing var(--letter-spacing--secondary)
+
+.info-list-item__text--primary
+  color var(--color-black)
+
+.info-list-item__text--secondary
+  color var(--color-grey--300)
+
+.icon-button
+  background none
+  border none
+  height 22px
+  padding 0
+  width @height
+

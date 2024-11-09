@@ -1,0 +1,65 @@
+-
+  users = [
+    {name: 'John Stevens', location: 'San Francisco, CA'},
+    {name: 'Laura Thomas', location: 'Oakland, CA'},
+    {name: 'Janet Wilson', location: 'Santa Clara, CA'}
+  ]
+
+doctype html
+html(lang='en')
+head
+  title Doximity
+  meta(charset='UTF-8')
+  meta(name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no')
+  meta(http-equiv='X-UA-Compatible' content='ie=edge')
+  link(rel='apple-touch-icon' sizes='180x180' href='/apple-touch-icon.png')
+  link(href='data:image/x-icon;base64,AAABAAEAEBAQAAEABAAoAQAAFgAAACgAAAAQAAAAIAAAAAEABAAAAAAAgAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAA////AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAREQAAAAAAEQAAEQAAAAEAAAAAEAAAEAAAAAABAAAQAAAAAAEAAQAAARAAABABAAAREQAAEAEAABERAAAQAQAAARAAABAAEAAAAAABAAAQAAAAAAEAAAEAAAAAEAAAABEBEBEAAAAAABERAAAAAAAAARAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' rel='icon' type='image/x-icon')
+  link(rel='stylesheet' href='index.styl')
+  link(rel='stylesheet' href='https://cdn.jsdelivr.net/gh/drinking-code/HK-Grotesk-Web/font.min.css')
+  link(rel='preconnect' href='https://fonts.googleapis.com')
+  link(rel='preconnect' href='https://fonts.gstatic.com' crossorigin)
+  link(href='https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap' rel='stylesheet')
+
+body#page
+  aside.sidebar.sidebar--left
+    h2.sidebar__heading--primary Hello World
+    p.sidebar__paragraph Welcome to Doximity!
+    button.button.button--cta-primary Let's Go
+    label#dropdown(for='dropdown-list-toggle' tabindex='0')
+      input#dropdown-list-toggle(
+        type='checkbox'
+        tabindex='-1'
+        aria-hidden='true'
+      )
+      span#dropdown__readout(aria-hidden='true') Option 1
+      ul.dropdown-list(role='listbox' aria-label='options')
+        - for(let i = 1; i <=3; i++)
+          li.dropdown-list__option(
+            role='option'
+            aria-selected=(i === 1).toString()
+            tabindex='-1'
+          ) Option #{i}
+
+  main.main-content
+    ul.card-list(role='list')
+      - for(let i = 1; i <= 3; i++)
+        li.card(role='listitem')
+          h3.card__title Card #{i}
+
+  aside.sidebar.sidebar--right
+    h2.sidebar__heading--secondary This is a List
+    ul.info-list
+      each user in users
+        li.info-list-item(role='listitem')
+          img.info-list-item__image(
+            src='img/empty-state-avatar-alt.svg'
+            alt=`${user.name} avatar`
+          )
+          .info-list-item__text-group
+            .info-list-item__text--primary=user.name
+            .info-list-item__text--secondary=user.location
+          button.button.icon-button(aria-label=`Expand ${user.name}`)
+            img.icon-button__icon(src='img/icon-plus.svg' alt='Plus icon')
+
+  script(type='module' src='index.js')
+
